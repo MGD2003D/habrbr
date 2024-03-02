@@ -68,7 +68,7 @@
 ### Регистрация пользователя
 
 - **Тип запроса**: `POST`
-- **URL**: `/api/users/register`
+- **URL**: `/api/users`
 - **Request**:
   ```json
   {
@@ -90,10 +90,29 @@
   }
   ```
 
+### Аутентификация пользователя
+
+- **Тип запроса**: `POST`
+- **URL**: `/api/auth/login`
+- **Request**:
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "secure_password"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Authentication successful",
+    "token": "jwt_token_here"
+  }
+  ```
+
 ### Создание блога
 
 - **Тип запроса**: `POST`
-- **URL**: `/api/blogs/create`
+- **URL**: `/api/blogs`
 - **Request** (токен аутентификации должен быть в заголовке запроса):
   ```json
   {
@@ -109,45 +128,144 @@
       "id": 1,
       "name": "Мой блог",
       "description": "Описание моего блога",
-      "author": {
-        "id": 1,
-        "username": "example_user"
-      },
-      "date": "2024-02-25"
+      "authorId": 1,
+      "createdAt": "2024-02-25"
     }
   }
   ```
 
-### Добавление статьи в блог
+### Получение списка блогов
 
-- **Тип запроса**: `POST`
-- **URL**: `/api/blogs/{blog_id}/articles/add`
-- **Request** (токен аутентификации должен быть в заголовке запроса):
+- **Тип запроса**: `GET`
+- **URL**: `/api/blogs`
+- **Response**:
   ```json
   {
-    "title": "Заголовок статьи",
-    "text": "Текст статьи",
-    "tags": ["технологии", "программирование"]
+    "blogs": [
+      {
+        "id": 1,
+        "name": "Мой блог",
+        "description": "Описание моего блога",
+        "authorId": 1,
+        "createdAt": "2024-02-25"
+      }
+    ]
+  }
+  ```
+
+### Создание статьи
+
+- **Тип запроса**: `POST`
+- **URL**: `/api/articles`
+- **Request** (Токен аутентификации должен быть в заголовке запроса):
+  ```json
+  {
+    "title": "Название статьи",
+    "text": "Содержимое статьи",
+    "tags": ["Тег1", "Тег2"],
+    "blogId": 1
   }
   ```
 - **Response**:
   ```json
   {
-    "message": "Статья успешно добавлена",
+    "message": "Article created successfully",
     "article": {
       "id": 1,
-      "title": "Заголовок статьи",
-      "text": "Текст статьи",
-      "author": {
-        "id": 1,
-        "username": "example_user"
-      },
-      "date": "2024-02-25",
-      "tags": ["технологии", "программирование"],
+      "title": "Название статьи",
+      "text": "Содержимое статьи",
+      "authorId": 1,
+      "createdAt": "2024-03-01",
+      "tags": ["Тег1", "Тег2"],
       "rating": 0
     }
   }
   ```
+
+### Удаление статьи
+
+- **Тип запроса**: `DELETE`
+- **URL**: `/api/articles/{article_id}`
+- Аутентификация: Требуется JWT
+- **Response**:
+  ```json
+  {
+    "message": "Article deleted successfully"
+  }
+  ```
+
+### Редактирование статьи
+
+- **Тип запроса**: `PUT`
+- **URL**: `/api/articles/{article_id}`
+- **Request** (Токен аутентификации должен быть в заголовке запроса):
+  ```json
+  {
+    "title": "Обновленное название статьи",
+    "text": "Обновленное содержимое статьи",
+    "tags": ["НовыйТег1", "НовыйТег2"]
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Article updated successfully",
+    "article": {
+      "id": 1,
+      "title": "Обновленное название статьи",
+      "text": "Обновленное содержимое статьи",
+      "tags": ["НовыйТег1", "НовыйТег2"],
+      "updatedAt": "2024-03-02"
+    }
+  }
+  ```
+
+### Создание комментария
+
+- **Тип запроса**: `POST`
+- **URL**: `/api/articles/{article_id}/comments`
+- **Request** (Токен аутентификации должен быть в заголовке запроса):
+  ```json
+  {
+    "text": "Текст комментария"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Comment added successfully",
+    "comment": {
+      "id": 1,
+      "text": "Текст комментария",
+      "authorId": 1,
+      "createdAt": "2024-03-02",
+      "rating": 0
+    }
+  }
+  ```
+
+### Редактирование комментария
+
+- **Тип запроса**: `PUT`
+- **URL**: `/api/comments/{comment_id}`
+- **Request** (Токен аутентификации должен быть в заголовке запроса):
+  ```json
+  {
+    "text": "Обновленный текст комментария"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "message": "Comment updated successfully",
+    "comment": {
+      "id": 1,
+      "text": "Обновленный текст комментария",
+      "updatedAt": "2024-03-03"
+    }
+  }
+  ```
+
 ### ERD
 
 ![](docs/ERD.PNG)
