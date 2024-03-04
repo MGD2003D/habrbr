@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class Blog
 {
-    public Guid ID { get; set; }
+    public int ID { get; set; }
     public string BlogName { get; set; }
     public string Description { get; set; }
     public virtual User Creator { get; set; }

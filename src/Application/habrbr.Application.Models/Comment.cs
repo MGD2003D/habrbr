@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class Comment
 {
-    public Guid ID { get; set; }
+    public int ID { get; set; }
     public string Text { get; set; }
     public virtual User Author { get; set; }
     public DateTime PublicationDate { get; set; }
