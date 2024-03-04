@@ -1,3 +1,5 @@
+namespace Contracts;
+
 public interface IArticleService
 {
     void AddArticle(Article article);

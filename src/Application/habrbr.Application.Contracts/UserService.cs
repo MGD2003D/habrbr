@@ -1,3 +1,6 @@
+namespace Contracts;
+
+
 public interface IUserService
 {
     void RegisterUser(User user);

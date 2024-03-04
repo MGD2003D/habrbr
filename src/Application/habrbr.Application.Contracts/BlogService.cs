@@ -1,3 +1,5 @@
+namespace Contracts;
+
 public interface IBlogService
 {
     void CreateBlog(Blog blog);

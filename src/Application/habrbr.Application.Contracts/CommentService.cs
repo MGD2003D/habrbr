@@ -1,3 +1,5 @@
+namespace Contracts;
+
 public interface ICommentService
 {
     void AddComment(Comment comment);
