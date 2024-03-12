@@ -16,10 +16,16 @@ public static class ServiceCollectionExtensions
 
         collection.AddPlatformMigrations(typeof(IAssemblyMarker).Assembly);
         collection.AddHostedService<MigrationRunnerService>();
-
+        
         // TODO: add repositories
         collection.AddScoped<IPersistenceContext, PersistenceContext>();
 
+        return collection;
+    }
+    public static IServiceCollection AddInfrastructurePersistence(this IServiceCollection collection, IConfiguration configuration)
+    {
+        collection.AddDbContext<ApplicationDbContext>(options =>
+            options.UseNpgsql(configuration.GetSection("Infrastructure:Persistence:Postgres:ConnectionString").Value));
         return collection;
     }
 }

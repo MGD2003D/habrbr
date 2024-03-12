@@ -16,7 +16,7 @@ builder.Services.AddOptions<JsonSerializerSettings>();
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<JsonSerializerSettings>>().Value);
 
 builder.Services.AddApplication();
-builder.Services.AddInfrastructurePersistence();
+builder.Services.AddInfrastructurePersistence(builder.Configuration);
 builder.Services
     .AddControllers()
     .AddNewtonsoftJson()
