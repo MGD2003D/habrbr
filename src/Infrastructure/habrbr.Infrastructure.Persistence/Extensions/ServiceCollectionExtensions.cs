@@ -1,11 +1,14 @@
 namespace Habrbr.Infrastructure.Persistence.Extensions;
 
-using habrbr.Application.Abstractions.Persistence;
-using habrbr.Infrastructure.Persistence.Migrations;
-using habrbr.Infrastructure.Persistence.Plugins;
+using Microsoft.EntityFrameworkCore;
+using Habrbr.Application.Abstractions.Persistence;
+using Habrbr.Infrastructure.Persistence.Migrations;
+using Habrbr.Infrastructure.Persistence.Plugins;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Itmo.Dev.Platform.Postgres.Extensions;
 using Itmo.Dev.Platform.Postgres.Plugins;
-using Microsoft.Extensions.DependencyInjection;
+using habrbr.Infrastructure.Persistence.Contexts;
 
 public static class ServiceCollectionExtensions
 {
@@ -16,7 +19,7 @@ public static class ServiceCollectionExtensions
 
         collection.AddPlatformMigrations(typeof(IAssemblyMarker).Assembly);
         collection.AddHostedService<MigrationRunnerService>();
-        
+
         // TODO: add repositories
         collection.AddScoped<IPersistenceContext, PersistenceContext>();
 

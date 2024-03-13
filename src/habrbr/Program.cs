@@ -1,10 +1,10 @@
 #pragma warning disable CA1506
 
-using Itmo.Dev.Platform.Common.Extensions;
-using Itmo.Dev.Platform.Logging.Extensions;
-using habrbr.Application.Extensions;
-using habrbr.Infrastructure.Persistence.Extensions;
-using habrbr.Presentation.Http.Extensions;
+//using Itmo.Dev.Platform.Common.Extensions;
+//using Itmo.Dev.Platform.Logging.Extensions;
+using Habrbr.Application.Extensions;
+using Habrbr.Infrastructure.Persistence.Extensions;
+using Habrbr.Presentation.Http.Extensions;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -24,8 +24,8 @@ builder.Services
 
 builder.Services.AddSwaggerGen().AddEndpointsApiExplorer();
 
-builder.Host.AddPlatformSerilog(builder.Configuration);
-builder.Services.AddUtcDateTimeProvider();
+//builder.Host.AddPlatformSerilog(builder.Configuration);
+//builder.Services.AddUtcDateTimeProvider();
 
 WebApplication app = builder.Build();
 

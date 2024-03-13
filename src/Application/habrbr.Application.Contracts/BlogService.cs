@@ -1,9 +1,12 @@
-namespace Contracts;
+using Models;
+using habrbr.Infrastructure.Persistence.Repositories;
+
+namespace habrbr.Application.Contracts;
 
 public interface IBlogService
 {
     void CreateBlog(Blog blog);
-    Blog GetBlogById(int id);
+    Blog? GetBlogById(int id);
     void UpdateBlog(Blog blog);
     void DeleteBlog(int id);
 }
@@ -22,7 +25,7 @@ public class BlogService : IBlogService
         _blogRepository.Add(blog);
     }
 
-    public Blog GetBlogById(int id)
+    public Blog? GetBlogById(int id)
     {
         return _blogRepository.GetById(id);
     }

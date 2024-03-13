@@ -1,4 +1,7 @@
-namespace Contracts;
+using Models;
+using habrbr.Infrastructure.Persistence.Repositories;
+
+namespace habrbr.Application.Contracts;
 
 public interface ISubscriptionService
 {
@@ -23,7 +26,7 @@ public class SubscriptionService : ISubscriptionService
 
     public IEnumerable<Subscription> GetSubscriptionsByUserId(int userId)
     {
-        return _subscriptionRepository.GetByUserId(userId);
+        return _subscriptionRepository.GetSubscriptionsByUserId(userId);
     }
 
     public void DeleteSubscription(int subscriptionId)

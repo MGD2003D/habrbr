@@ -1,9 +1,12 @@
-namespace Contracts;
+using Models;
+using habrbr.Infrastructure.Persistence.Repositories;
+
+namespace habrbr.Application.Contracts;
 
 public interface ICommentService
 {
     void AddComment(Comment comment);
-    Comment GetCommentById(int id);
+    Comment? GetCommentById(int id);
     void UpdateComment(Comment comment);
     void DeleteComment(int id);
 }
@@ -22,7 +25,7 @@ public class CommentService : ICommentService
         _commentRepository.Add(comment);
     }
 
-    public Comment GetCommentById(int id)
+    public Comment? GetCommentById(int id)
     {
         return _commentRepository.GetById(id);
     }

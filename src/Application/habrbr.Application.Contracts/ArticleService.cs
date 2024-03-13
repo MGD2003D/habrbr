@@ -1,9 +1,12 @@
-namespace Contracts;
+using Models;
+using habrbr.Infrastructure.Persistence.Repositories;
+
+namespace habrbr.Application.Contracts;
 
 public interface IArticleService
 {
     void AddArticle(Article article);
-    Article GetArticleById(int id);
+    Article? GetArticleById(int id);
     void UpdateArticle(Article article);
     void DeleteArticle(int id);
 }
@@ -22,7 +25,7 @@ public class ArticleService : IArticleService
         _articleRepository.Add(article);
     }
 
-    public Article GetArticleById(int id)
+    public Article? GetArticleById(int id)
     {
         return _articleRepository.GetById(id);
     }

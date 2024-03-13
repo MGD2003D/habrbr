@@ -2,6 +2,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\habrbr.Application.Models\habrbr.Application.Models.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\habrbr.Infrastructure.Persistence\habrbr.Infrastructure.Persistence.csproj" />
     </ItemGroup>
 
     <ItemGroup>

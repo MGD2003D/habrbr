@@ -1,10 +1,13 @@
-namespace Contracts;
+using Models;
+using habrbr.Infrastructure.Persistence.Repositories;
+
+namespace habrbr.Application.Contracts;
 
 
 public interface IUserService
 {
     void RegisterUser(User user);
-    User GetUserById(int id);
+    User? GetUserById(int id);
     void UpdateUser(User user);
     void DeleteUser(int id);
 }
@@ -23,7 +26,7 @@ public class UserService : IUserService
         _userRepository.Add(user);
     }
 
-    public User GetUserById(int id)
+    public User? GetUserById(int id)
     {
         return _userRepository.GetById(id);
     }
