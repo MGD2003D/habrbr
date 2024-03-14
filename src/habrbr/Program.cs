@@ -24,6 +24,8 @@ mvcBuilder.AddPresentationHttp();
 
 builder.Services.AddSwaggerGen().AddEndpointsApiExplorer();
 
+Console.WriteLine($"ConnectionString: {builder.Configuration.GetConnectionString("DefaultConnection")}");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
     x => x.MigrationsAssembly("habrbr.Infrastructure.Persistence")));

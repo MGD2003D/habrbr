@@ -28,7 +28,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddInfrastructurePersistence(this IServiceCollection collection, IConfiguration configuration)
     {
         collection.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(configuration.GetSection("Infrastructure:Persistence:Postgres:ConnectionString").Value));
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
         return collection;
     }
 }
