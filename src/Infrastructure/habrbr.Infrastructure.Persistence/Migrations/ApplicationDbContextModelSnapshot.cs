@@ -58,7 +58,7 @@ namespace habrbr.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("BlogID");
 
-                    b.ToTable("Article");
+                    b.ToTable("Articles");
                 });
 
             modelBuilder.Entity("Models.Blog", b =>
@@ -85,7 +85,7 @@ namespace habrbr.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("CreatorID");
 
-                    b.ToTable("Blog");
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("Models.Comment", b =>
@@ -117,7 +117,41 @@ namespace habrbr.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("ParentArticleID");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Models.Subscription", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+
+                    b.Property<int?>("AuthorID")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("BlogID")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("SubscriberID")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("SubscriptionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AuthorID");
+
+                    b.HasIndex("BlogID");
+
+                    b.HasIndex("SubscriberID");
+
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("Models.User", b =>
@@ -148,7 +182,36 @@ namespace habrbr.Infrastructure.Persistence.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Models.UserRightsInBlog", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+
+                    b.Property<int?>("BlogID")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("RightsAssignmentDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("UserID")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserRole")
+                        .HasColumnType("text");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BlogID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("UserRightsInBlogs");
                 });
 
             modelBuilder.Entity("Models.Article", b =>
@@ -186,6 +249,42 @@ namespace habrbr.Infrastructure.Persistence.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("ParentArticle");
+                });
+
+            modelBuilder.Entity("Models.Subscription", b =>
+                {
+                    b.HasOne("Models.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorID");
+
+                    b.HasOne("Models.Blog", "Blog")
+                        .WithMany()
+                        .HasForeignKey("BlogID");
+
+                    b.HasOne("Models.User", "Subscriber")
+                        .WithMany()
+                        .HasForeignKey("SubscriberID");
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Blog");
+
+                    b.Navigation("Subscriber");
+                });
+
+            modelBuilder.Entity("Models.UserRightsInBlog", b =>
+                {
+                    b.HasOne("Models.Blog", "Blog")
+                        .WithMany()
+                        .HasForeignKey("BlogID");
+
+                    b.HasOne("Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.Navigation("Blog");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Models.Article", b =>
