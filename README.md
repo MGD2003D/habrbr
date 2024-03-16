@@ -347,3 +347,8 @@
 ### ERD
 
 ![](docs/ERD.PNG)
+
+
+### SWAGGER
+
+`https://localhost:5001/swagger/index.html`
