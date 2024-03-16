@@ -1,4 +1,5 @@
 #pragma warning disable CA1506
+#pragma warning disable IDE0008
 
 using Habrbr.Application.Extensions;
 using Habrbr.Infrastructure.Persistence.Extensions;
@@ -9,7 +10,16 @@ using habrbr.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenLocalhost(5001, listenOptions =>
+    {
+        listenOptions.UseHttps();
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1AndHttp2; // Включает поддержку HTTP/1 и HTTP/2
+    });
+});
 
 builder.Configuration.AddUserSecrets<Program>();
 
@@ -30,7 +40,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
     x => x.MigrationsAssembly("habrbr.Infrastructure.Persistence")));
 
-WebApplication app = builder.Build();
+var app = builder.Build();
 
 app.UseRouting();
 app.UseSwagger();
