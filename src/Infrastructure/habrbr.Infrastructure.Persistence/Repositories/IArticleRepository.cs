@@ -1,6 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Models;
+using habrbr.Infrastructure.Persistence.Contexts;
+
 namespace habrbr.Infrastructure.Persistence.Repositories;
 
-using Models;
 
 public interface IArticleRepository
 {
@@ -12,24 +15,40 @@ public interface IArticleRepository
 
 public class ArticleRepository : IArticleRepository
 {
+    private readonly ApplicationDbContext _context;
+
+    public ArticleRepository(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
     public void Add(Article article)
     {
-        // Пустышка
+        _context.Articles.Add(article);
+        _context.SaveChanges();
     }
 
     public Article? GetById(int id)
     {
-        // Пустышка
-        return null;
+        return _context.Articles
+            .Include(a => a.Author)
+            .Include(a => a.Comments)
+            .FirstOrDefault(a => a.ID == id);
     }
 
     public void Update(Article article)
     {
-        // Пустышка
+        _context.Articles.Update(article);
+        _context.SaveChanges();
     }
 
     public void Delete(int id)
     {
-        // Пустышка
+        Article? article = _context.Articles.Find(id);
+        if (article != null)
+        {
+            _context.Articles.Remove(article);
+            _context.SaveChanges();
+        }
     }
 }
