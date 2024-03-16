@@ -6,6 +6,7 @@
 
     <ItemGroup>
         <Folder Include="Controllers\"/>
+        <ProjectReference Include="..\..\Application\habrbr.Application.Contracts\habrbr.Application.Contracts.csproj"/>
     </ItemGroup>
 
 </Project>
