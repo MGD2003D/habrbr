@@ -17,7 +17,7 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     serverOptions.ListenLocalhost(5001, listenOptions =>
     {
         listenOptions.UseHttps();
-        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1AndHttp2; // Включает поддержку HTTP/1 и HTTP/2
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1AndHttp2;
     });
 });
 

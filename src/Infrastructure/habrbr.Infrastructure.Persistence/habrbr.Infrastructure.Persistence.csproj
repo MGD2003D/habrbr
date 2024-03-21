@@ -10,5 +10,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
         <ProjectReference Include="..\..\Application\habrbr.Application.Models\habrbr.Application.Models.csproj"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions"/>
+        <!-- <ProjectReference Include="..\..\Application\habrbr.Application\habrbr.Application.csproj"/> -->
     </ItemGroup>
 </Project>

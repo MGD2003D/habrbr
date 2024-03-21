@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Itmo.Dev.Platform.Postgres.Extensions;
 using Itmo.Dev.Platform.Postgres.Plugins;
 using habrbr.Infrastructure.Persistence.Contexts;
+using habrbr.Infrastructure.Persistence.Repositories;
 
 public static class ServiceCollectionExtensions
 {
@@ -21,7 +22,17 @@ public static class ServiceCollectionExtensions
         collection.AddHostedService<MigrationRunnerService>();
 
         // TODO: add repositories
+        collection.AddScoped<IArticleRepository, ArticleRepository>();
+        collection.AddScoped<IBlogRepository, BlogRepository>();
+        collection.AddScoped<ICommentRepository, CommentRepository>();
+        collection.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+        collection.AddScoped<IUserRepository, UserRepository>();
+        collection.AddScoped<IUserRightsInBlogRepository, UserRightsInBlogRepository>();
+        
         collection.AddScoped<IPersistenceContext, PersistenceContext>();
+
+		collection.AddDbContext<ApplicationDbContext>(options =>
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
         return collection;
     }
