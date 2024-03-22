@@ -2,7 +2,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Application\habrbr.Application.Abstractions\habrbr.Application.Abstractions.csproj"/>
         <PackageReference Include="Itmo.Dev.Platform.Postgres"/>
-        <ProjectReference Include="..\..\Application\habrbr.Application.Models\habrbr.Application.Contracts.csproj"/>
+        <!-- <ProjectReference Include="..\..\Application\habrbr.Application.Models\habrbr.Application.Contracts.csproj"/> -->
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions"/>
         <ProjectReference Include="..\..\Application\habrbr.Application.Abstractions\habrbr.Application.Abstractions.csproj"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" />
